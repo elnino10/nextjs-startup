@@ -1,19 +1,21 @@
 import { MongoClient } from "mongodb";
 
 async function handler(req, res) {
+  // check for the method on the request
   if (req.method === "POST") {
     const data = req.body;
 
-    const client = await MongoClient.connect(
-      "mongodb+srv://joe:YmvB1ytGykhuFmM2@cluster0.lsur2ve.mongodb.net/meetup?retryWrites=true&w=majority"
-    );
-
+    // connect mongodb via MongoClient to store data on DB
+    const client = await MongoClient.connect(process.env.MONGODB_URI);
     const db = client.db();
     const meetupCollection = db.collection("meetups");
+
+    // store the information from the req.body to DB
     const result = await meetupCollection.insertOne(data);
 
     client.close();
 
+    // send back response
     res.status(201).json({
       status: "success",
       data: result,
