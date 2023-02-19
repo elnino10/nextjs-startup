@@ -12,10 +12,10 @@ export async function getStaticProps() {
   const client = await MongoClient.connect(process.env.MONGODB_URI);
   const db = client.db();
   const meetupCollection = db.collection("meetups");
-
+  
   // find the array of all the data in collection
   const resultMeetups = await meetupCollection.find().toArray();
-
+ 
   client.close();
 
   return {

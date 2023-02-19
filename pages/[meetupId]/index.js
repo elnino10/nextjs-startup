@@ -32,9 +32,10 @@ export async function getStaticPaths() {
     })),
   };
 }
-
+ 
 export async function getStaticProps(context) {
   // fetch data from API
+  console.log(process.env.MONGODB_URI);
 
   const meetupId = context.params.meetupId;
 
